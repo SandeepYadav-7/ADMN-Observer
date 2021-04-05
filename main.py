@@ -1,9 +1,15 @@
 from alive import keep_alive
 from discord.ext import commands
+from discord.ext.commands import when_mentioned_or
 import os
 
 
-bot = commands.Bot(description="Still Development",strip_after_prefix=True,command_prefix=["A!","ADMN","-"],case_insensitive=True)
+
+
+bot = commands.Bot(description="Still Development",strip_after_prefix=True,command_prefix=["A!","ADMN","="],case_insensitive=True)
+
+
+
 
 for filename in os.listdir("./commands"):
   if filename.endswith(".py") and filename != "__init__.py":
