@@ -32,34 +32,7 @@ class stats(commands.Cog):
     await ctx.send(embed=embed)
 
 
-  @commands.command(name="stats")
-  async def botinfo(self,ctx):
-    embed = discord.Embed(title="Bot stats",color=ctx.author.colour,thumbnail=self.bot.user.avatar_url,timestamp=datetime.datetime.utcnow())
-    proc = Process()
-    with proc.oneshot():
-      uptime = timedelta(seconds=time()-proc.create_time())
-      cpu_time = timedelta(seconds=(cpu := proc.cpu_times()).system*cpu.user)
-      mem_total = virtual_memory().total /(1024**2)
-      mem_of_total = proc.memory_percent()
-      mem_usage = mem_total * (mem_of_total /100)
-
-    fields =[
-      {"Bot Version",1.0,True},
-      {"Python Version",python_version(),True},
-      {"Discord.py version",discord_version,True},
-      {"Uptime",uptime,True},
-      {"CPU time",cpu_time,True},
-      {"Memory Usage",mem_total,True},
-      {"Users","",True},
-      #{"Python Version",self.bot.guild.member_count,True},
-    ]
-    for name,value,inline in fields:
-      embed.add_field(name=name,value=value,inline=inline)
-
-    await ctx.send(embed.embed)
-    
-    
-
+  
 
 
 def setup(bot):

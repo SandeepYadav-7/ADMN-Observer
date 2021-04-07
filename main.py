@@ -1,12 +1,26 @@
 from alive import keep_alive
 from discord.ext import commands
-from discord.ext.commands import when_mentioned_or
+import json
 import os
+import discord
+intents = discord.Intents.default()
+intents.members = True
+
+def get_prefix(bot,message):
+  if not message.guild:
+    return commands.when_mentioned_or("$")(bot,message)
+
+  with open("resource/prefixs.json","r") as f:
+    prefixes = json.load(f)
+  if str(message.guild.id) not in prefixes:
+    return commands.when_mentioned_or("$")(bot,message)
+  prefix = prefixes[str(message.guild.id)]
+  return commands.when_mentioned_or(prefix)(bot,message)
 
 
 
 
-bot = commands.Bot(description="Still Development",strip_after_prefix=True,command_prefix=["A!","ADMN","="],case_insensitive=True)
+bot = commands.Bot(description="Still Development",strip_after_prefix=True,command_prefix=get_prefix,case_insensitive=True,intents=intents)
 
 
 

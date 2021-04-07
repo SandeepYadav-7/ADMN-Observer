@@ -16,9 +16,11 @@ def add_margin(pil_img, top, right, bottom, left, color):
 
 
 
-class Basic(commands.Cog):
-  def __inti__(self,bot):
+class Fun(commands.Cog):
+  def __init__(self,bot):
     self.bot = bot
+
+
   
   @commands.command()
   async def card(self,ctx,member:discord.Member=None):
@@ -32,14 +34,12 @@ class Basic(commands.Cog):
     data = BytesIO(await asset.read())
     pfp = Image.open(data)
     pfp = pfp.resize((1400,1400))
-    wel = Image.open("861297.jpg")
+    wel = Image.open("resource/861297.jpg")
     d1 = ImageDraw.Draw(wel)
-    myFont = ImageFont.truetype('text.ttf', 240)
+    myFont = ImageFont.truetype('resource/text.ttf', 240)
     d1.text((800, 1600), "Welcome to ADMN",font=myFont, fill=(68,0,102))
     d1.text((1600, 1850),ctx.author.name,font=myFont, fill=(68,0,102))
     
-    #wel.paste(pfp,(489,1169))
-    #wel.text((10,10), "Hello World", fill=(255,255,0))
 
     
     im1 = pfp
@@ -59,23 +59,26 @@ class Basic(commands.Cog):
 
     mask_blur = mask.filter(ImageFilter.GaussianBlur(10))
     wel = Image.composite(im1, im2, mask_blur)
-    
-    
 
-
-
-
-
-    
-  
     wel.save("wel.jpg")
     #wel.save("wel.jpg")
     await ctx.send(file= discord.File("wel.jpg"))
     os.remove("wel.jpg")
 
 
+    
+    
+
+
+
+
+
+      
+  
+
+
 
   
 
 def setup(bot):
-  bot.add_cog(Basic(bot))
+  bot.add_cog(Fun(bot))
