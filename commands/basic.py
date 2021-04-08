@@ -1,8 +1,9 @@
-from discord.utils import get
 import discord
 import datetime
 import json
 from discord.ext import commands
+from discord.ext.commands import CommandNotFound , BadArgument,MissingRequiredArgument,MissingPermissions
+from discord.errors import Forbidden
 import os
 from PIL import Image, ImageDraw, ImageFont,ImageFilter,ImageOps,ImageChops
 from io import BytesIO
@@ -21,6 +22,13 @@ def add_margin(pil_img, top, right, bottom, left, color):
 class Basic(commands.Cog):
   def __init__(self,bot):
     self.bot = bot
+
+
+
+
+
+
+
 
   
   @commands.Cog.listener()
@@ -124,7 +132,20 @@ def setup(bot):
   bot.add_cog(Basic(bot))
 
 """
- @commands.Cog.listener()
-  async def on_command_error(self,ctx,ex):
-    await ctx.send("someting is wrong, Please contect the Admin")
+  
+  @commands.Cog.listener()
+  async def on_command_error(self,ctx,exc):
+    if isinstance(exc,CommandNotFound):
+      await ctx.send("commands not found Please check the help page",delete_after=5)
+    elif isinstance(exc,BadArgument):
+      await ctx.send("You didn't provied good argument cheack help argument",delete_after=5)
+    elif isinstance(exc,Forbidden):
+      await ctx.send("I do not have permission to do that.",delete_after=5)
+    elif isinstance(exc,MissingRequiredArgument):
+      await ctx.send("you didn't provide the argument",delete_after=5)
+    elif isinstance(exc,MissingPermissions):
+      await ctx.send("you don't have permission to use this command",delete_after=5)
+    else:
+      await ctx.send("someting is wrong, Please contect the Admin",delete_after=5)
+
 """

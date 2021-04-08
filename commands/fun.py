@@ -22,6 +22,7 @@ class Fun(commands.Cog):
 
 
   
+      
   @commands.command()
   async def card(self,ctx,member:discord.Member=None):
     if not member:
